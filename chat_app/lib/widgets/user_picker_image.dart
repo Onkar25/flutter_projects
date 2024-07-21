@@ -36,6 +36,7 @@ class _UserImagePickerState extends State<UserImagePicker> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CircleAvatar(
           radius: 40,
@@ -46,10 +47,13 @@ class _UserImagePickerState extends State<UserImagePicker> {
         TextButton.icon(
           onPressed: _pickImage,
           icon: const Icon(Icons.image),
-          label: Text('Add Image',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
-              )),
+          label: Text(
+            'Add Image',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            textAlign: TextAlign.center,
+          ),
         ),
       ],
     );

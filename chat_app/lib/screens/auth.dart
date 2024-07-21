@@ -1,6 +1,6 @@
 import 'dart:io';
-
 import 'package:chat_app/widgets/user_picker_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +36,7 @@ class AuthScreenState extends State<AuthScreen> {
         // Login here
         final userCredentials = await _firebase.signInWithEmailAndPassword(
             email: _enteredEmailId, password: _enteredPassword);
-        print(userCredentials);
+        // print(userCredentials);
       } else {
         // Sign up here
 
@@ -49,8 +49,19 @@ class AuthScreenState extends State<AuthScreen> {
             .child('${userCredentials.user!.uid}.jpg');
 
         await firebaseRef.putFile(_pickedImage!);
-        final imageurl = firebaseRef.getDownloadURL();
-        print(imageurl);
+        final imageurl = await firebaseRef.getDownloadURL();
+        // print(imageurl);
+
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userCredentials.user!.uid)
+            .set({
+          'username': 'To be continue',
+          'emailid': _enteredEmailId,
+          'imageurl': imageurl,
+        });
+
+        // print(link);
       }
       _isAuthenticating = false;
     } on FirebaseAuthException catch (error) {
@@ -72,7 +83,7 @@ class AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       body: Center(
         child: SingleChildScrollView(
           child: Column(
