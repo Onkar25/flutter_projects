@@ -18,7 +18,7 @@ class _ChatScreenState extends State<ChatScreen> {
     fcm.requestPermission();
     // final token = await fcm.getToken();
     // print('TOKEN : $token');
-    fcm.subscribeToTopic('flutter_chat_app');
+    fcm.subscribeToTopic('chat');
   }
 
   @override

@@ -11,7 +11,7 @@ class ChatMessage extends StatelessWidget {
     final uathenticateUser = FirebaseAuth.instance.currentUser!;
     return StreamBuilder(
         stream: FirebaseFirestore.instance
-            .collection('chats')
+            .collection('chat')
             .orderBy(
               'createAt',
               descending: true,
